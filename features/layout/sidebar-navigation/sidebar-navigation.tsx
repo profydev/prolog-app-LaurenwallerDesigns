@@ -144,12 +144,17 @@ const LinkList = styled(List)`
   flex: 1;
 `;
 
-const CollapseMenuItem = styled(MenuItemButton)`
+const CollapseMenuItem = styled(MenuItemButton)<{ isCollapsed: boolean }>`
   display: none;
 
   @media (min-width: ${breakpoint("desktop")}) {
     display: flex;
-  }
+    ${(props) =>
+      props.isCollapsed &&
+      css`
+      transform: rotate(180deg);
+    }
+  `}
 `;
 
 export function SidebarNavigation() {
