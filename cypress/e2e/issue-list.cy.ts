@@ -82,5 +82,42 @@ describe("Issue List", () => {
       cy.wait(1500);
       cy.contains("Page 2 of 3");
     });
+
+    it("numUsers match API Data", () => {
+      cy.request("GET", "https://prolog-api.profy.dev/issue").then(
+        (response) => {
+          expect(response.status).to.eq(200);
+          const items = response.body.items;
+          let i = 3;
+          let c = 0;
+          cy.get("tr").each((td, index) => {
+            cy.log(items[0].numUsers);
+            if (i <= 40 && c <= 9) {
+              cy.get("td").eq(i).contains(items[c].numUsers);
+              i = i + 4;
+              c = c + 1;
+            }
+          });
+        }
+      );
+    });
+    it("numEvents match API Data", () => {
+      cy.request("GET", "https://prolog-api.profy.dev/issue").then(
+        (response) => {
+          expect(response.status).to.eq(200);
+          const items = response.body.items;
+          let i = 2;
+          let c = 0;
+          cy.get("tr").each((td, index) => {
+            cy.log(items[0].numUsers);
+            if (i <= 40 && c <= 9) {
+              cy.get("td").eq(i).contains(items[c].numEvents);
+              i = i + 4;
+              c = c + 1;
+            }
+          });
+        }
+      );
+    });
   });
 });
